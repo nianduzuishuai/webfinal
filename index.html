@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Create</title>
+    <style>
+        /* 设置 body 和 html 的高度为 100%，允许上下滚动 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden; /* 禁止横向滚动 */
+            overflow-y: auto; /* 允许纵向滚动 */
+        }
+
+        /* 设置图片容器宽度为 100%，高度自动调整 */
+        #image-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* 垂直排列图片 */
+            align-items: center; /* 水平居中图片 */
+        }
+
+        /* 设置每个图片项的容器，并添加底部间隙 */
+        .image-item {
+            margin-bottom: 4px; /* 每个图片底部添加 4px 间隙 */
+            width: 100%;  /* 保证容器宽度是 100% */
+        }
+
+        /* 确保图片的宽度为 100%，高度按比例自动调整 */
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* 图片保持比例，避免被拉伸 */
+        }
+    </style>
+
+    <!-- 默认favicon图标 -->
+    <link id="favicon" rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+    <div id="image-container"></div>
+
+    <script>
+        const imageContainer = document.getElementById('image-container');
+        const imagePrefix = 'page_页面_';
+        const imageSuffix = '.jpg';
+
+        // 动态切换favicon效果
+        const favicon = document.getElementById('favicon');
+        const faviconImages = ['favicon.png', 'favicon-empty.png', 'favicon-full.png'];
+        let currentFaviconIndex = 0;
+
+        // 每隔500毫秒切换一次favicon图标
+        setInterval(() => {
+            // 切换到下一张图片
+            currentFaviconIndex = (currentFaviconIndex + 1) % faviconImages.length;
+            favicon.href = faviconImages[currentFaviconIndex];
+        }, 500);
+
+        // 创建图片
+        for (let i = 1; i <= 121; i++) {
+            // 创建一个 div 元素作为图片容器
+            const imageItem = document.createElement('div');
+            imageItem.classList.add('image-item'); // 为容器添加类
+
+            // 创建图片元素
+            const img = document.createElement('img');
+            img.src = `image/${imagePrefix}${i.toString().padStart(3, '0')}${imageSuffix}`;
+
+            // 给每个图片添加点击事件
+            img.addEventListener('click', function() {
+                if (i === 92) {
+                    // 如果点击的是第92页，打开指定的链接
+                    window.open('https://ignite.graphics/work/world-rugby-wxv-2023', '_blank');
+                } else if (i === 117) {
+                    // 如果点击的是第117页，打开Vimeo链接
+                    window.open('https://vimeo.com/user61335647', '_blank');
+                }
+            });
+
+            // 将图片添加到对应的容器中
+            imageItem.appendChild(img);
+            // 将容器添加到图片容器中
+            imageContainer.appendChild(imageItem);
+        }
+    </script>
+</body>
+</html>
